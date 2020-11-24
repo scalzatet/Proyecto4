@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Warehouse</title>
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" type="text/css"
+        href="./datatables/datatables/DataTables-1.10.22/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="./css/styleheader.css">
+    <link rel="stylesheet" href="./css/stylebuscador.css">
+    <link rel="stylesheet" href="./css/stylenewUser.css">
+
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
+                <img src="./images/logo_morado.PNG" id="logo" class="brand_logo" alt="Logo">
+                <li>
+                    <a href="./contactos.html">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        <span class="title">Contactos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./companias.html">
+                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        <span class="title">Compañías</span>
+                    </a>
+                </li>
+
+                <li id="menuUsuarios">
+                    <a href="./usuarios.html">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <span class="title"> Usuarios</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="regiones.html">
+                        <i class="fas fa-globe-americas" aria-hidden="true"></i>
+                        <span class="title">Región / Ciudad</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="buscador" class="buscador_reg">
+            <div class="containerBusc region">
+                <h1>Región</h1>
+                <button id="agregarRegion" data-toggle="modal" data-target="#modalAgregarRegion" class="btn btn-success regi"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button  onclick="encontrarRegiones()" type='button' data-toggle="modal" data-target="#modalEditarRegion" class='btn btn-info btn-sm acc regi'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                <button onclick="encontrarRegiones()" data-toggle="modal" data-target="#modalRegionEliminar" type='button' class='btn btn-danger btn-sm acc regi'><span class="material-icons"><i class="fa fa-trash-o" aria-hidden="true"></i></span></button>
+            </div>
+
+            <div class="containerBusc region">
+                <h1> País</h1>
+                <button id="agregarPais" data-toggle="modal" data-target="#modalAgregarPais" class="btn btn-success regi"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button onclick="encontrarPaises()"  type='button' data-toggle="modal" data-target="#modalEditarPais" class='btn btn-info btn-sm acc regi'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                <button onclick="encontrarPaises()"  data-toggle="modal" data-target="#modalPaisEliminar" type='button' class='btn btn-danger btn-sm acc regi'><span class="material-icons"><i class="fa fa-trash-o" aria-hidden="true"></i></span></button>
+            </div>
+
+            <div class="containerBusc region">
+                <h1>Ciudad</h1>
+                <button id="agregarCiudad" data-toggle="modal" data-target="#modalAgregarCiudad" class="btn btn-success regi"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                <button onclick="encontrarCiudad()"  type='button' data-toggle="modal" data-target="#modalEditarCiudad" class='btn btn-info btn-sm acc regi'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                <button onclick="encontrarCiudad()"  data-toggle="modal" data-target="#modalCiudadEliminar" type='button' class='btn btn-danger btn-sm acc regi'><span class="material-icons"><i class="fa fa-trash-o" aria-hidden="true"></i></span></button>
+
+<!--                 ${e.contactosId}
+ -->            </div>
+        </section>
+
+        <section id="list">
+            <div class="container">
+              <table id="tUbication" class="display" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Seleccionar</th>
+                    <th>Región</th>
+                    <th>País</th>
+                    <th>Ciudad</th>
+                  </tr>
+                </thead>
+                <tbody id="rows">
+                  <!-- CODE HERE -->
+                </tbody>
+                <tfoot>
+                  <!-- NOT CODE HERE -->
+                </tfoot>
+              </table>
+            </div>
+        </section>
+
+        <div id="modalAgregarRegion" class="modal fade center" tabindex="-1" role="dialog" aria-labelledby="title"
+            aria-hidden="true">
+            <div class="modal-dialog  center" role="document">
+                <div class="modal-content  center">
+                    <div id="modal-header" class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                        <section class="login-block">
+                            <div class="container">
+                                <div class="row">
+
+                                    <div class="col-md-4 login-sec">
+                                        <h2 class="text-center">Región</h2>
+                                        <div class="form-group">
+                                            <label for="region">Región:</label>
+                                            <input id='region' type="text" class="form-control" placeholder="Región">
+                                        </div>
+                                        <div class="form-check">
+                                            <button id="crearRegion" type="submit" class="btn btn-login float-right">Crear</button>
+                                            <button data-dismiss="modal"  type="submit" class="btn btn-login float-left">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 banner-secregion">
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modalAgregarPais" class="modal fade center" tabindex="-1" role="dialog" aria-labelledby="title"
+            aria-hidden="true">
+            <div class="modal-dialog  center" role="document">
+                <div class="modal-content  center">
+                    <div id="modal-header" class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                        <section class="login-block">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 login-sec">
+                                        <h2 class="text-center">País</h2>
+                                        <div class="form-group">
+                                            <label for="pais">País:</label>
+                                            <input id='pais' type="text" class="form-control" placeholder="País">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="regionList">Región</label>
+                                            <select id="regionList" class="form-control" placeholder="Seleccionar...">
+                                                <option id="fOptReg" value="0">Seleccionar...</option>
+                                                <!-- CODE HERE -->
+                                            </select>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <button id="crearPais" type="submit" class="btn btn-login float-right">Crear</button>
+                                            <button data-dismiss="modal"  type="submit" class="btn btn-login float-left">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 banner-secpais">
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="modalAgregarCiudad" class="modal fade center" tabindex="-1" role="dialog" aria-labelledby="title"
+            aria-hidden="true">
+            <div class="modal-dialog  center" role="document">
+                <div class="modal-content  center">
+                    <div id="modal-header" class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                        <section class="login-block">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 login-sec">
+                                        <h2 class="text-center">Crear Ciudad</h2>
+                                        <div class="form-group">
+                                            <label for="ciudad">Ciudad:</label>
+                                            <input id='ciudad' type="text" class="form-control" placeholder="Ciudad">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label for="paisList">País</label>
+                                            <select id="paisList" class="form-control" placeholder="Seleccionar...">
+                                              <option id="fOptPais" value="0">Seleccionar...</option>
+                                              <!-- CODE HERE -->
+                                            </select>
+                                        </div>
+
+                                        <div class="form-check">
+                                            <button id="crearCiudad" type="submit" class="btn btn-login float-right">Crear</button>
+                                            <button data-dismiss="modal"  type="submit" class="btn btn-login float-left">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 banner-ciud">
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- ////////////////// BORRAR //////////////// -->
+
+
+        <div id="modalBorrarRegion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div id="modal-body" class="modal-body">
+                        <h2>¿Eliminar Región?</h2>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="eliminarRegionDefinitivamente" class="btn btn-danger" type="button" data-dismiss="modal">Eliminar</button>
+                        <button class="btn btn-danger float-right" type="button" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="modalRegionEliminar" class="modal fade center" tabindex="-1" role="dialog" aria-labelledby="title"
+            aria-hidden="true">
+            <div class="modal-dialog  center" role="document">
+                <div class="modal-content  center">
+                    <div id="modal-header" class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                        <section class="login-block">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 login-sec">
+                                        <h2 class="text-center">Eliminar Región</h2>
+
+                                        <div class="form-group">
+                                            <label for="regionListElim">Región</label>
+                                            <select id="regionListElim" class="form-control" placeholder="Seleccionar...">
+                                                <option id="fOptReg" value="0">Seleccionar...</option>
+                                                <!-- CODE HERE -->
+                                            </select>
+                                        </div> 
+
+                                        <div class="form-check">
+                                            <button data-dismiss="modal"  type="submit"  data-toggle="modal" data-target="#modalBorrarRegion" class="btn btn-login float-right">Borrar Definitivamente</button>
+                                            <button data-dismiss="modal"  type="submit" class="btn btn-login float-left">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 banner-secpais">
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="modalBorrarPais" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div id="modal-body" class="modal-body">
+                        <h2>¿Eliminar País?</h2>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="eliminarPaisDefinitivamente" class="btn btn-danger" type="button" data-dismiss="modal">Eliminar</button>
+                        <button class="btn btn-danger float-right" type="button" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="modalPaisEliminar" class="modal fade center" tabindex="-1" role="dialog" aria-labelledby="title"
+            aria-hidden="true">
+            <div class="modal-dialog  center" role="document">
+                <div class="modal-content  center">
+                    <div id="modal-header" class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                        <section class="login-block">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 login-sec">
+                                        <h2 class="text-center">Eliminar País</h2>
+
+                                        <div class="form-group">
+                                            <label for="paisListElim">País</label>
+                                            <select id="paisListElim" class="form-control" placeholder="Seleccionar...">
+                                                <option id="fOptReg" value="0">Seleccionar...</option>
+                                                <!-- CODE HERE -->
+                                            </select>
+                                        </div> 
+
+                                        <div class="form-check">
+                                            <button data-dismiss="modal"  type="submit"  data-toggle="modal" data-target="#modalBorrarPais" class="btn btn-login float-right">Borrar Definitivamente</button>
+                                            <button data-dismiss="modal"  type="submit" class="btn btn-login float-left">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 banner-secpais">
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="modalBorrarCiudad" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div id="modal-body" class="modal-body">
+                        <h2>¿Eliminar Ciudad?</h2>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="eliminarCiudadDefinitivamente" class="btn btn-danger" type="button" data-dismiss="modal">Eliminar</button>
+                        <button class="btn btn-danger float-right" type="button" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div id="modalCiudadEliminar" class="modal fade center" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+            <div class="modal-dialog  center" role="document">
+                <div class="modal-content  center">
+                    <div id="modal-header" class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                        <section class="login-block">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 login-sec">
+                                        <h2 class="text-center">Eliminar Ciudad</h2>
+
+                                        <div class="form-group">
+                                            <label for="ciudadListElim">Ciudad</label>
+                                            <select id="ciudadListElim" class="form-control" placeholder="Seleccionar...">
+                                                <option id="fOptReg" value="0">Seleccionar...</option>
+                                                <!-- CODE HERE -->
+                                            </select>
+                                        </div> 
+
+                                        <div class="form-check">
+                                            <button data-dismiss="modal"  type="submit"  data-toggle="modal" data-target="#modalBorrarCiudad" class="btn btn-login float-right">Borrar Definitivamente</button>
+                                            <button data-dismiss="modal"  type="submit" class="btn btn-login float-left">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 banner-secpais">
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ////////////////// EDITAR  //////////////// -->
+
+        <div id="modalEditarRegion" class="modal fade center" tabindex="-1" role="dialog" aria-labelledby="title"
+            aria-hidden="true">
+            <div class="modal-dialog  center" role="document">
+                <div class="modal-content  center">
+                    <div id="modal-header" class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                        <section class="login-block">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 login-sec">
+                                        <h2 class="text-center">Editar Región</h2>
+
+                                        <div class="form-group">
+                                            <label for="regionListEdit">Región</label>
+                                            <select id="regionListEdit" class="form-control" placeholder="Seleccionar...">
+                                                <option id="fOptReg" value="0">Seleccionar...</option>
+                                                <!-- CODE HERE -->
+                                            </select>
+                                        </div> 
+
+
+                                        <div class="form-group">
+                                            <label for="regionEdit">Región:</label>
+                                            <input id='regionEdit' type="text" class="form-control" placeholder="Región">
+                                        </div>
+
+                                        
+
+                                        <div class="form-check">
+                                            <button id="editarRegion" type="submit" class="btn btn-login float-right">Editar</button>
+                                            <button data-dismiss="modal"  type="submit" class="btn btn-login float-left">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 banner-secpais">
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div id="modalEditarPais" class="modal fade center" tabindex="-1" role="dialog" aria-labelledby="title"
+            aria-hidden="true">
+            <div class="modal-dialog  center" role="document">
+                <div class="modal-content  center">
+                    <div id="modal-header" class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                        <section class="login-block">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 login-sec">
+                                        <h2 class="text-center">Editar País</h2>
+
+                                        <div class="form-group">
+                                            <label for="paisListEdit">País</label>
+                                            <select id="paisListEdit" class="form-control" placeholder="Seleccionar...">
+                                                <option id="fOptReg" value="0">Seleccionar...</option>
+                                                <!-- CODE HERE -->
+                                            </select>
+                                        </div> 
+
+
+                                        <div class="form-group">
+                                            <label for="paisEdit">País:</label>
+                                            <input id='paisEdit' type="text" class="form-control" placeholder="País">
+                                        </div>
+
+                                        
+
+                                        <div class="form-check">
+                                            <button id="editarPais" type="submit" class="btn btn-login float-right">Editar</button>
+                                            <button data-dismiss="modal"  type="submit" class="btn btn-login float-left">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 banner-secpais">
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <div id="modalEditarCiudad" class="modal fade center" tabindex="-1" role="dialog" aria-labelledby="title"
+            aria-hidden="true">
+            <div class="modal-dialog  center" role="document">
+                <div class="modal-content  center">
+                    <div id="modal-header" class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                        <section class="login-block">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 login-sec">
+                                        <h2 class="text-center">Editar Ciudad</h2>
+
+                                        <div class="form-group">
+                                            <label for="ciudadListEdit">Ciudad</label>
+                                            <select id="ciudadListEdit" class="form-control" placeholder="Seleccionar...">
+                                                <option id="fOptReg" value="0">Seleccionar...</option>
+                                                <!-- CODE HERE -->
+                                            </select>
+                                        </div> 
+
+
+                                        <div class="form-group">
+                                            <label for="ciudadEdit">Ciudad:</label>
+                                            <input id='ciudadEdit' type="text" class="form-control" placeholder="Ciudad">
+                                        </div>
+
+                                        
+
+                                        <div class="form-check">
+                                            <button id="editarCiudad" type="submit" class="btn btn-login float-right">Editar</button>
+                                            <button data-dismiss="modal"  type="submit" class="btn btn-login float-left">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 banner-secpais">
+                                    </div>
+                                </div>
+                        </section>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="../Bootstrap/js/jquery-3.5.1.min.js"></script>
+    <script src="../Bootstrap/js/bootstrap.js"></script>
+    <script src="../Bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="./datatables/datatables/DataTables-1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/regiones.js"></script>
+</body>
+
+</html>

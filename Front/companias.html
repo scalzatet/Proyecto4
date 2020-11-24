@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Warehouse</title>
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="../Bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" type="text/css" href="./datatables/datatables/DataTables-1.10.22/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="./css/styleheader.css">
+    <link rel="stylesheet" href="./css/stylebuscador.css">
+    <link rel="stylesheet" href="./css/stylenewUser.css">
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul id="respMenu" class="ace-responsive-menu" data-menu-style="horizontal">
+                <img src="./images/logo_morado.PNG" id="logo" class="brand_logo" alt="Logo">
+                <li>
+                    <a href="./contactos.html">
+                        <i class="fa fa-home" aria-hidden="true"></i>
+                        <span class="title">Contactos</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="./crearcompa.html">
+                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                        <span class="title">Compañías</span>
+                    </a>
+                </li>
+    
+                <li id="menuUsuarios">
+                    <a href="./usuarios.html">
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <span class="title"> Usuarios</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="" href="regiones.html">
+                        <i class="fas fa-globe-americas" aria-hidden="true"></i>
+                        <span class="title">Región / Ciudad</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>       
+    </header>
+    <main>
+        <section id="buscador">
+            <h1>Compañías</h1>
+            <div class="containerBusc">
+                    <button  class="btn busc"><i class="fa fa-upload" aria-hidden="true"></i> Importar</button>
+                    <button class="btn busc"><i class="fas fa-download"></i> Exportar</button>
+                    <button id="agregarCompania" data-toggle="modal" data-target="#modalAgregarCompania" class="btn busc"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</button>              
+            </div>
+        </section>
+
+        <section id="list">
+            <div class="container">
+              <table id="tCompanias" class="display" style="width:100%">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Dirección</th>
+                    <th>Email</th>
+                    <th>Teléfono</th>
+                    <th>Ubicación</th>
+                    <th>Acciones</th>  <!-- //Actions -->
+                  </tr>
+                </thead>
+                <tbody id="rows">
+                  <!-- CODE HERE -->
+                </tbody>
+                <tfoot>
+                  <!-- NOT CODE HERE -->
+                </tfoot>
+              </table>
+            </div>
+        </section>
+
+        <div id="modalAgregarCompania" class="modal fade center" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+            <div class="modal-dialog  center" role="document">
+                <div class="modal-content  center">
+                    <div id="modal-header" class="modal-header">
+                        <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    </div>
+
+                    <div id="modal-body" class="modal-body">
+                        <section class="login-block">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-4 login-sec">
+                                        <h2 class="text-center">Compañía</h2>
+                                        
+                                        <div class="form-group">
+                                            <label for="nombre">Nombre</label>
+                                            <input id='nombre' type="text" class="form-control" placeholder="Nombre">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="direccion">Dirección</label>
+                                            <input id='direccion' type="text" class="form-control" placeholder="Dirección">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input id='email' type="email" class="form-control" placeholder="Email">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="telefono">Teléfono</label>
+                                            <input id='telefono' type="number" class="form-control" placeholder="Teléfono">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="ciudad">Ciudad</label>
+                                            <select id="ciudad" class="form-control" placeholder="Seleccionar...">
+                                            <option id="fOptCom" value="0">Seleccionar...</option>
+                                            <!-- CODE HERE -->
+                                            </select>
+                                        </div>
+                                        <div class="form-check">
+                                            <button id="crearCompania" type="submit" class="btn btn-login float-right">Crear</button>
+                                            <button id="editarCompania" type="submit" class="btn btn-login float-right">Editar</button>
+                                            <button data-dismiss="modal"  type="submit" class="btn btn-login float-left">Cerrar</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 banner-sec">
+                                    </div>
+                                </div>
+                        </section>    
+                    </div>
+
+                    <div class="modal-footer">
+                        <button  class="btn btn-danger" type="button" data-dismiss="modal">Eliminar</button>
+                        <button class="btn btn-danger float-right" type="button" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+
+        <div id="modalBorrarCompania" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <div id="modal-body" class="modal-body">
+                    <h2>¿Eliminar Compañía?</h2>
+                </div>
+                <div class="modal-footer">
+                  <button id="eliminarCompania" class="btn btn-danger" type="button" data-dismiss="modal">Eliminar</button>
+                  <button class="btn btn-danger float-right" type="button" data-dismiss="modal">Cerrar</button>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+
+    </main>
+    <script src="../Bootstrap/js/jquery-3.5.1.min.js"></script>
+    <script src="../Bootstrap/js/bootstrap.js"></script>
+    <script src="../Bootstrap/js/bootstrap.bundle.js"></script>
+    <script src="./datatables/datatables/DataTables-1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/companias.js"></script>
+</body>
+
+</html>
